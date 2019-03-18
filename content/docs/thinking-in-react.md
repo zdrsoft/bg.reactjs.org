@@ -14,11 +14,11 @@ One of the many great parts of React is how it makes you think about apps as you
 
 ## Start With A Mock {#start-with-a-mock}
 
-Imagine that we already have a JSON API and a mock from our designer. The mock looks like this:
+Представи си че вече имаме JSON API и дизайн. Като дизайна изглежда така:
 
 ![Mockup](../images/blog/thinking-in-react-mock.png)
 
-Our JSON API returns some data that looks like this:
+JSON API ни връща данни, които изглеждат така:
 
 ```
 [
@@ -31,25 +31,25 @@ Our JSON API returns some data that looks like this:
 ];
 ```
 
-## Step 1: Break The UI Into A Component Hierarchy {#step-1-break-the-ui-into-a-component-hierarchy}
+## Step 1: Раздели Визуалната Част В Йерархия От Компоненти{#step-1-break-the-ui-into-a-component-hierarchy}
 
-The first thing you'll want to do is to draw boxes around every component (and subcomponent) in the mock and give them all names. If you're working with a designer, they may have already done this, so go talk to them! Their Photoshop layer names may end up being the names of your React components!
+Първото нещо което бихте искали да направите е да нарисувате кутий около всеки компонент (и подкомпонент) върху дизайна и ги именувайте. Ако работите с дизайнер, те може вече да са направили това, така че отидете и говорете с тях. Накрая имената на Photoshop слоя им може да се окажат имена на вашите React компоненти!
 
-But how do you know what should be its own component? Just use the same techniques for deciding if you should create a new function or object. One such technique is the [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle), that is, a component should ideally only do one thing. If it ends up growing, it should be decomposed into smaller subcomponents.
+Но как да реша, кое трябва да е компонент? Просто използвай същата техника, както когато трябва да създадеш нова функция или обект. Такава техника е [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle), или накратко, компонента трябва да прави само едно нещо, в най - добрия случай. Ако с времето продължава да се усложнява, компонента трябва да се разбие на по - малки подкомпоненти.
 
 Since you're often displaying a JSON data model to a user, you'll find that if your model was built correctly, your UI (and therefore your component structure) will map nicely. That's because UI and data models tend to adhere to the same *information architecture*, which means the work of separating your UI into components is often trivial. Just break it up into components that represent exactly one piece of your data model.
 
 ![Component diagram](../images/blog/thinking-in-react-components.png)
 
-You'll see here that we have five components in our simple app. We've italicized the data each component represents.
+Ще видиш, че имаме пет компонента в нашето малко приложение. We've italicized the data each component represents.
 
   1. **`FilterableProductTable` (orange):** contains the entirety of the example
   2. **`SearchBar` (blue):** receives all *user input*
   3. **`ProductTable` (green):** displays and filters the *data collection* based on *user input*
   4. **`ProductCategoryRow` (turquoise):** displays a heading for each *category*
-  5. **`ProductRow` (red):** displays a row for each *product*
+  5. **`ProductRow` (red):** показва ред за всеки *продукт*
 
-If you look at `ProductTable`, you'll see that the table header (containing the "Name" and "Price" labels) isn't its own component. This is a matter of preference, and there's an argument to be made either way. For this example, we left it as part of `ProductTable` because it is part of rendering the *data collection* which is `ProductTable`'s responsibility. However, if this header grows to be complex (i.e. if we were to add affordances for sorting), it would certainly make sense to make this its own `ProductTableHeader` component.
+Ако погледнеш в `ProductTable`, you'll see that the table header (containing the "Name" and "Price" labels) isn't its own component. This is a matter of preference, and there's an argument to be made either way. For this example, we left it as part of `ProductTable` because it is part of rendering the *data collection* which is `ProductTable`'s responsibility. However, if this header grows to be complex (i.e. if we were to add affordances for sorting), it would certainly make sense to make this its own `ProductTableHeader` component.
 
 Now that we've identified the components in our mock, let's arrange them into a hierarchy. This is easy. Components that appear within another component in the mock should appear as a child in the hierarchy:
 
